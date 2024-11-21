@@ -42,7 +42,7 @@ class RegisterService {
         'course name': courseName,
         'course code': courseCode,
         'faculty name': facultyName,
-        'semester': int.tryParse(semester),
+        'semester': semester,
         'enrollment status': enrollment,
         'authUid': user
             .uid, // Link Firebase Auth UID to custom UID for avoid user tempering
