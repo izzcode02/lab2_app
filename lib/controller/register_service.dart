@@ -1,10 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:lab2_app/controller/auth.dart';
 
 class RegisterService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+  AuthService service = AuthService();
 
   Future<bool> registerStudent(
       String fullname,
@@ -104,6 +107,36 @@ class RegisterService {
       });
     } catch (e) {
       throw Exception("Failed to generate UID: $e");
+    }
+  }
+
+  Future<void> deleteUser() async {
+    try {
+      // Get the current user
+      final user = _auth.currentUser;
+
+      if (user == null) {
+        throw Exception('No user is currently logged in.');
+      }
+
+      // Delete the user document from Firestore
+      await FirebaseFirestore.instance
+          .collection('Users')
+          .doc(user.uid)
+          .delete();
+      print('User document deleted from Firestore.');
+      // Delete the user document from Firestore
+
+      await user.delete();
+      // Delete the user from Firebase Authentication
+      if (user.delete() == true) {
+        _auth.signOut;
+      }
+
+      print('User account deleted successfully.');
+    } catch (e) {
+      print('Error deleting user: $e');
+      // Handle specific errors (e.g., reauthentication required)
     }
   }
 }

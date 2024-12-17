@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../controller/registerservice.dart';
+import '../controller/register_service.dart';
 import '../utils/validator.dart';
 import '../widget/customButton.dart';
 import '../widget/customdropdown.dart';

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:lab2_app/widget/customButton.dart';
 
 import '../main.dart';
@@ -189,8 +190,18 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
               ),
               const SizedBox(height: 20),
+              SubmitButton(
+                onPressed: () {},
+                text: 'Log In with Google'.toUpperCase(),
+                color: const Color.fromARGB(255, 255, 147, 59),
+                icon: Icon(
+                  Ionicons.logo_google,
+                  color: Colors.red,
+                ),
+              ),
+              const SizedBox(height: 20),
               NextButton(
-                valueColor: 0xFF20237D,
+                valueColor: 0xFF000000,
                 nameButton: 'Register',
                 routeName: '/register',
               ),

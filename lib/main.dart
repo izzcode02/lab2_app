@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart'; //new
 import 'package:provider/provider.dart';
-import 'package:lab2_app/views/admin_landing_page.dart';
+import 'package:lab2_app/views/menu/admin_landing_page.dart';
 import 'package:lab2_app/views/login_screen.dart';
-import 'package:lab2_app/views/staff_landing_page.dart';
-import 'package:lab2_app/views/student_landing_page.dart';
+import 'package:lab2_app/views/menu/student_landing_page.dart';
 
 import 'controller/auth.dart';
 import 'provider/student_profile_provider.dart';
+import 'views/menu/message_recyclebin.dart';
 import 'views/register.dart';
 
 AuthService auth = AuthService();
@@ -55,8 +55,10 @@ class MyApp extends StatelessWidget {
 
         //user
         '/users/admin': (context) => const AdminLandingPage(),
-        '/users/staff': (context) => const StaffLandingPage(),
         '/users/student': (context) => const StudentLandingPage(),
+
+        //message
+        '/users/message/recyclebin': (context) => const RecycleBin(),
       },
     );
   }

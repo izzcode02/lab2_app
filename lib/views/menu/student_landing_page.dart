@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:lab2_app/views/menu/message.dart';
 import 'package:lab2_app/views/profile/profile.dart';
 import 'package:lab2_app/views/profile/viewprofile.dart';
 import 'package:lab2_app/widget/yes_no_dialog.dart';
 
-import '../main.dart';
-import '../controller/auth.dart';
-import '../widget/balancedgridmenu.dart';
+import '../../main.dart';
+import '../../controller/auth.dart';
+import '../../widget/balancedgridmenu.dart';
 
 class StudentLandingPage extends StatefulWidget {
   const StudentLandingPage({super.key});
@@ -32,6 +33,11 @@ class _StudentLandingPageState extends State<StudentLandingPage> {
               imageLink: 'assets/icons/profile.png',
               label: 'Profile',
               nextScreen: (context) => const ProfilePage(),
+            ),
+            MenuCardSmallTile(
+              imageLink: 'assets/icons/message.png',
+              label: 'Message',
+              nextScreen: (context) => const MessageBoxPage(),
             ),
             MenuCardSmallTile(
               imageLink: 'assets/icons/logout.png',

@@ -26,7 +26,8 @@ class _NextButtonState extends State<NextButton> {
         minimumSize: WidgetStateProperty.all(Size(300, 50)),
         padding: WidgetStateProperty.all<EdgeInsets>(
             const EdgeInsets.symmetric(vertical: 17)),
-        backgroundColor: WidgetStateProperty.all<Color>(Color(0xFF20237D)),
+        backgroundColor:
+            WidgetStateProperty.all<Color>(Color(widget.valueColor)),
         shape: WidgetStateProperty.all<RoundedRectangleBorder>(
           RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
@@ -52,8 +53,9 @@ class _NextButtonState extends State<NextButton> {
 }
 
 class SubmitButton extends StatefulWidget {
-  const SubmitButton({
+  SubmitButton({
     Key? key,
+    this.icon,
     required this.onPressed,
     required this.text,
     required this.color,
@@ -62,6 +64,7 @@ class SubmitButton extends StatefulWidget {
   final VoidCallback? onPressed;
   final String text;
   final Color color;
+  Icon? icon;
 
   @override
   _SubmitButtonState createState() => _SubmitButtonState();
@@ -71,7 +74,7 @@ class _SubmitButtonState extends State<SubmitButton> {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: ElevatedButton(
+      child: ElevatedButton.icon(
         style: ButtonStyle(
           minimumSize: WidgetStateProperty.all(const Size(300, 50)),
           padding: WidgetStateProperty.all<EdgeInsets>(
@@ -85,7 +88,9 @@ class _SubmitButtonState extends State<SubmitButton> {
           ),
         ),
         onPressed: widget.onPressed,
-        child: Text(
+        icon: widget.icon,
+        label: Text(
+          textAlign: TextAlign.center,
           widget.text,
           style: TextStyle(color: Colors.white),
         ),

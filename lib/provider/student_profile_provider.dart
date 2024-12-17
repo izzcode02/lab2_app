@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import '../controller/registerservice.dart';
+import '../controller/register_service.dart';
 
 class StudentProfileProvider with ChangeNotifier {
   final FirebaseAuth _auth = FirebaseAuth.instance;
