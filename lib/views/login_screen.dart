@@ -191,7 +191,14 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               const SizedBox(height: 20),
               SubmitButton(
-                onPressed: () {},
+                onPressed: () async {
+                  final user = await auth.signInWithGoogle(context);
+                  if (user != null) {
+                    print("Signed in as: ${user.displayName}");
+                  } else {
+                    print("Sign-in canceled");
+                  }
+                },
                 text: 'Log In with Google'.toUpperCase(),
                 color: const Color.fromARGB(255, 255, 147, 59),
                 icon: Icon(

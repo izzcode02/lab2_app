@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -7,6 +8,7 @@ import '../utils/navigator.dart';
 class AuthService {
   final auth = FirebaseAuth.instance;
   final firestore = FirebaseFirestore.instance;
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
 
   Future<Map<String, dynamic>?> getCurrentUserData() async {
     User? user = auth.currentUser;
@@ -32,6 +34,39 @@ class AuthService {
       }
     } catch (e) {
       print('Error fetching user data: $e');
+      return null;
+    }
+  }
+
+  Future<dynamic> signInWithGoogle(BuildContext context) async {
+    try {
+      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+
+      if (googleUser == null) {
+        return null; // User canceled sign-in
+      }
+
+      final GoogleSignInAuthentication? googleAuth =
+          await googleUser.authentication;
+
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth?.accessToken,
+        idToken: googleAuth?.idToken,
+      );
+
+      final userCredential = await auth.signInWithCredential(credential);
+      if (userCredential.user != null) {
+        // Check if user is not null
+        toNavigate.gotoStudent(context); // Navigate after successful sign-in
+        return userCredential.user; // Return the user
+      } else {
+        // Handle the case where user is null after credential sign in (rare but possible)
+        print("Error: User is null after successful credential sign-in.");
+        return null;
+      }
+    } on Exception catch (e) {
+      // TODO
+      print("Error during Google Sign-In: $e");
       return null;
     }
   }
@@ -136,6 +171,7 @@ class AuthService {
 
   Future signOut(BuildContext context) async {
     try {
+      await _googleSignIn.signOut();
       await auth.signOut();
       toNavigate.gotoLogin(context);
     } catch (e) {
